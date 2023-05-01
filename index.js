@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import fs from 'fs';
 import multer from 'multer';
@@ -5,7 +7,7 @@ import cors from 'cors';
 
 import mongoose from 'mongoose';
 
-import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
+import { registerValidation, loginValidation, postCreateValidation, postChangeValidation } from './validations.js';
 
 import { handleValidationErrors, checkAuth } from './utils/index.js';
 
@@ -56,7 +58,7 @@ app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch(
   '/posts/:id',
   checkAuth,
-  postCreateValidation,
+  postChangeValidation,
   handleValidationErrors,
   PostController.update,
 );
